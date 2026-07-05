@@ -305,7 +305,7 @@ function lookup(v) {
   const out = document.getElementById('student-out');
   const mc = document.getElementById('marks-card');
   if (v.length < 2) { out.innerHTML = ''; mc.style.display = 'none'; cur = null; return; }
-  const key = v.padStart(2,'0');
+  const key = v.length === 2 ? v : v.padStart(2,'0');
   const s = STUDENTS[key];
   if (s) {
     cur = s;
