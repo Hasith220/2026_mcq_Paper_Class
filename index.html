@@ -251,8 +251,8 @@ const STUDENTS = {
   "57": { name: "M. Kaveesha Sandaruwani",                 id: "26534057" },
   "58": { name: "U.V Jithuni Sithara",                       id: "26534058" },
   "59": { name: "D.A Sanjula Himansi",                       id: "26534059" },
-  "60": { name: "L.G Tharushi Prabodha",                     id: "26534060" },
   "61": { name: "D.L Nathidu Nethsara",                      id: "26534061" },
+  "60": { name: "L.G Tharushi Prabodha",                     id: "26534060" },
 };
 
 let cur = null, recent = [], scriptUrl = "", activeMCQ = "MCQ 01";
@@ -305,7 +305,7 @@ function lookup(v) {
   const out = document.getElementById('student-out');
   const mc = document.getElementById('marks-card');
   if (v.length < 2) { out.innerHTML = ''; mc.style.display = 'none'; cur = null; return; }
-  const key = v.length === 2 ? v : v.padStart(2,'0');
+  const key = STUDENTS[v] ? v : v.padStart(2,'0');
   const s = STUDENTS[key];
   if (s) {
     cur = s;
@@ -320,9 +320,10 @@ function lookup(v) {
     setTimeout(() => document.getElementById('marks').focus(), 50);
   } else {
     cur = null;
+    const fullId = parseInt(v) <= 9 ? '26534000' + parseInt(v) : '2653400' + v;
     out.innerHTML = `<div class="result-box notfound">
       <div class="result-icon">✗</div>
-      <div class="result-err">Index "2653400${v}" not found</div>
+      <div class="result-err">Index "${fullId}" not found</div>
     </div>`;
     mc.style.display = 'none';
   }
