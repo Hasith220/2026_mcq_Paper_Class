@@ -1,137 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Student Report — 2026 O/L</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<title>ශිෂ්‍ය වාර්තාව — 2026 O/L</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Abhaya+Libre:wght@500;700;800&family=Yaldevi:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
-    --bg: #0d0f14;
-    --surface: #13161e;
-    --surface2: #1a1e28;
-    --border: #252a38;
-    --accent: #4f9cf9;
-    --success: #34d399;
-    --danger: #f87171;
-    --warning: #fbbf24;
-    --purple: #a78bfa;
-    --text: #e8eaf0;
-    --muted: #6b7280;
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface2: #fbf9f4;
+    --border: #e5e1d8;
+    --accent: #2563eb;
+    --accent-soft: #eef3ff;
+    --success: #059669;
+    --success-soft: #ecfdf5;
+    --danger: #dc2626;
+    --danger-soft: #fef2f2;
+    --warning: #d97706;
+    --warning-soft: #fffbeb;
+    --purple: #7c3aed;
+    --purple-soft: #f5f3ff;
+    --text: #1f2937;
+    --text-soft: #4b5563;
+    --muted: #8b8577;
     --mono: 'DM Mono', monospace;
-    --sans: 'Sora', sans-serif;
+    --heading: 'Abhaya Libre', 'Noto Sans Sinhala', serif;
+    --body: 'Yaldevi', 'Noto Sans Sinhala', sans-serif;
+    --label: 'Noto Sans Sinhala', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     background: var(--bg);
     color: var(--text);
-    font-family: var(--sans);
+    font-family: var(--body);
     height: 100%;
   }
   body {
-    padding: 0.6rem 0.75rem;
+    padding: 0.9rem 0.85rem 1.5rem;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     overflow-y: auto;
+    background-image: radial-gradient(circle at 15% 10%, #eef3ff 0%, transparent 45%), radial-gradient(circle at 85% 85%, #f5f3ff 0%, transparent 45%);
   }
   .app { width: 100%; max-width: 1200px; margin: 0 auto; }
 
   /* Countdown banner */
   .countdown-banner {
-    background: linear-gradient(135deg, rgba(248,113,113,0.12), rgba(251,191,36,0.08));
-    border: 1px solid rgba(248,113,113,0.3);
-    border-radius: 10px;
-    padding: 7px 14px;
+    background: linear-gradient(135deg, #fff5f5, #fffaf0);
+    border: 1.5px solid #fecaca;
+    border-radius: 16px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    margin-bottom: 0.6rem;
+    gap: 22px;
+    margin-bottom: 0.9rem;
     flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(220,38,38,0.06);
   }
-  .countdown-label { font-size: 11px; font-family: var(--mono); letter-spacing: 1px; text-transform: uppercase; color: var(--danger); font-weight: 500; white-space: nowrap; }
-  .countdown-units { display: flex; gap: 12px; }
+  .countdown-label { font-family: var(--heading); font-size: 15px; letter-spacing: 0.3px; color: var(--danger); font-weight: 700; }
+  .countdown-units { display: flex; gap: 16px; }
   .countdown-unit { text-align: center; }
-  .countdown-num { font-size: 20px; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
-  .countdown-tag { font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-  .countdown-date { font-size: 10px; font-family: var(--mono); color: var(--muted); white-space: nowrap; }
+  .countdown-num { font-size: 28px; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
+  .countdown-tag { font-family: var(--label); font-size: 11px; color: var(--muted); font-weight: 500; }
+  .countdown-date { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 
   /* Header */
-  .header { text-align: center; margin-bottom: 0.75rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--border); }
-  .school-tag { display: inline-block; font-size: 11px; font-family: var(--mono); letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
-  .student-name { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .header { text-align: center; margin-bottom: 0.85rem; padding-bottom: 0.7rem; border-bottom: 2px solid var(--border); }
+  .school-tag { display: inline-block; font-family: var(--label); font-size: 12px; letter-spacing: 1px; color: var(--muted); font-weight: 500; margin-bottom: 8px; }
+  .student-name { font-family: var(--heading); font-size: 30px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
   .student-id { font-size: 13px; font-family: var(--mono); color: var(--muted); }
 
-  /* Main layout — landscape 2 column */
+  /* Main layout */
   .main-grid {
     display: grid;
     grid-template-columns: 1.05fr 1fr;
-    gap: 0.75rem;
+    gap: 0.85rem;
     align-items: start;
   }
-  .col { display: flex; flex-direction: column; gap: 0.7rem; }
+  .col { display: flex; flex-direction: column; gap: 0.75rem; }
 
   /* Stats row */
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 10px; text-align: center; }
-  .stat-val { font-size: 26px; font-weight: 700; font-family: var(--mono); margin-bottom: 3px; line-height: 1; }
-  .stat-label { font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 14px 10px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .stat-val { font-size: 27px; font-weight: 700; font-family: var(--mono); margin-bottom: 3px; line-height: 1; }
+  .stat-label { font-family: var(--label); font-size: 12.5px; color: var(--text-soft); font-weight: 500; }
+  .stat-card.avg { background: var(--accent-soft); border-color: #c7d9fb; }
   .stat-card.avg .stat-val { color: var(--accent); }
+  .stat-card.rank { background: var(--warning-soft); border-color: #fde3ad; }
   .stat-card.rank .stat-val { color: var(--warning); }
+  .stat-card.papers { background: var(--success-soft); border-color: #b8e6cf; }
   .stat-card.papers .stat-val { color: var(--success); }
+  .stat-card.predicted { background: var(--purple-soft); border-color: #ddd2fb; }
   .stat-card.predicted .stat-val { color: var(--purple); }
 
   .predicted-card {
     grid-column: span 2;
-    background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(79,156,249,0.06));
-    border: 1px solid rgba(167,139,250,0.3);
+    background: linear-gradient(135deg, #f5f3ff, #eef3ff);
+    border: 1.5px solid #ddd2fb;
   }
-  .predicted-sub { display: flex; justify-content: center; gap: 18px; margin-top: 6px; font-size: 12px; font-family: var(--mono); color: var(--muted); }
-  .predicted-sub span b { color: var(--text); font-size: 14px; }
+  .predicted-sub { display: flex; justify-content: center; gap: 20px; margin-top: 6px; font-family: var(--mono); font-size: 13px; color: var(--text-soft); }
+  .predicted-sub span b { color: var(--text); font-size: 15px; }
 
   /* Chart */
-  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; }
-  .chart-title { font-size: 13px; font-family: var(--mono); letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
-  .chart-wrap { position: relative; height: 240px; }
+  .chart-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .chart-title { font-family: var(--heading); font-size: 16px; color: var(--text); margin-bottom: 10px; font-weight: 700; }
+  .chart-wrap { position: relative; height: 250px; }
 
   /* MCQ breakdown */
-  .breakdown-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; }
-  .breakdown-title { font-size: 13px; font-family: var(--mono); letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
-  .mcq-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); gap: 10px; }
+  .breakdown-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .breakdown-title { font-family: var(--heading); font-size: 16px; color: var(--text); margin-bottom: 10px; font-weight: 700; }
+  .mcq-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); gap: 10px; }
   .mcq-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .mcq-name { font-size: 13px; font-family: var(--mono); color: var(--muted); width: 58px; flex-shrink: 0; font-weight: 500; }
-  .mcq-bar-wrap { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .mcq-name { font-size: 13px; font-family: var(--mono); color: var(--text-soft); width: 58px; flex-shrink: 0; font-weight: 500; }
+  .mcq-bar-wrap { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
   .mcq-bar { height: 100%; border-radius: 4px; }
   .mcq-marks { font-size: 14px; font-family: var(--mono); font-weight: 700; width: 48px; text-align: right; flex-shrink: 0; }
   .mcq-rank { font-size: 12px; font-family: var(--mono); color: var(--muted); width: 34px; text-align: right; flex-shrink: 0; }
 
   /* Legend */
-  .legend { display: flex; gap: 16px; margin-bottom: 10px; }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-family: var(--mono); color: var(--muted); font-weight: 500; }
+  .legend { display: flex; gap: 18px; margin-bottom: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--label); font-size: 12.5px; color: var(--text-soft); font-weight: 500; }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
   .legend-line { width: 14px; height: 2px; border-top: 2px dashed var(--danger); flex-shrink: 0; }
 
   /* Footer */
-  .footer { text-align: center; font-size: 10px; font-family: var(--mono); color: var(--muted); margin-top: 0.6rem; }
+  .footer { text-align: center; font-family: var(--label); font-size: 11px; color: var(--muted); margin-top: 0.7rem; }
 
   /* Loading / Error */
   .loading { text-align: center; padding: 3rem 1rem; }
   .loading-spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-  .loading p { font-size: 13px; color: var(--muted); font-family: var(--mono); }
-  .error-box { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); border-radius: 12px; padding: 1.5rem; text-align: center; }
-  .error-box p { font-size: 13px; color: var(--danger); font-family: var(--mono); }
+  .loading p { font-family: var(--label); font-size: 14px; color: var(--muted); }
+  .error-box { background: var(--danger-soft); border: 1.5px solid #fecaca; border-radius: 14px; padding: 1.5rem; text-align: center; }
+  .error-box p { font-family: var(--label); font-size: 14px; color: var(--danger); }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Small screens — stack vertically, allow scroll */
   @media (max-width: 720px) {
-    body { align-items: flex-start; padding: 1rem 0.85rem 2rem; }
     .main-grid { grid-template-columns: 1fr; }
     .chart-wrap { height: 230px; }
     .countdown-units { gap: 10px; }
-    .countdown-num { font-size: 22px; }
+    .countdown-num { font-size: 23px; }
+    .student-name { font-size: 25px; }
   }
 </style>
 </head>
@@ -139,7 +153,7 @@
 <div class="app" id="app">
   <div class="loading">
     <div class="loading-spinner"></div>
-    <p>Loading report...</p>
+    <p>වාර්තාව පූරණය වෙමින්...</p>
   </div>
 </div>
 
@@ -152,7 +166,7 @@ function getCountdownHTML() {
   const diff = EXAM_DATE - now;
 
   if (diff <= 0) {
-    return `<div class="countdown-banner"><div class="countdown-label">🎓 O/L Exam has started!</div></div>`;
+    return `<div class="countdown-banner"><div class="countdown-label">🎓 O/L විභාගය ආරම්භ වී ඇත!</div></div>`;
   }
 
   const days    = Math.floor(diff / (1000*60*60*24));
@@ -162,14 +176,14 @@ function getCountdownHTML() {
 
   return `
     <div class="countdown-banner" id="countdown-banner">
-      <div class="countdown-label">⏳ Time to O/L Exam</div>
+      <div class="countdown-label">⏳ O/L විභාගයට ඇති කාලය</div>
       <div class="countdown-units">
-        <div class="countdown-unit"><div class="countdown-num">${days}</div><div class="countdown-tag">Days</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-tag">Hours</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(minutes).padStart(2,'0')}</div><div class="countdown-tag">Min</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(seconds).padStart(2,'0')}</div><div class="countdown-tag">Sec</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${days}</div><div class="countdown-tag">දින</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-tag">පැය</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(minutes).padStart(2,'0')}</div><div class="countdown-tag">මිනිත්තු</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(seconds).padStart(2,'0')}</div><div class="countdown-tag">තත්පර</div></div>
       </div>
-      <div class="countdown-date">Dec 8, 2026 · 8:30 AM</div>
+      <div class="countdown-date">දෙසැම්බර් 8, 2026 · පෙ.ව. 8.30</div>
     </div>
   `;
 }
@@ -187,7 +201,7 @@ async function loadReport() {
   const app = document.getElementById("app");
 
   if (!studentId) {
-    app.innerHTML = `<div class="error-box"><p>No student ID provided.</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>ශිෂ්‍ය අංකයක් ලබා දී නැත.</p></div>`;
     return;
   }
 
@@ -196,13 +210,13 @@ async function loadReport() {
     const data = await res.json();
 
     if (data.error) {
-      app.innerHTML = `<div class="error-box"><p>Error: ${data.error}</p></div>`;
+      app.innerHTML = `<div class="error-box"><p>දෝෂයකි: ${data.error}</p></div>`;
       return;
     }
 
     renderReport(data);
   } catch(err) {
-    app.innerHTML = `<div class="error-box"><p>Failed to load report.<br/>${err.message}</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>වාර්තාව පූරණය කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
   }
 }
 
@@ -211,7 +225,6 @@ function renderReport(data) {
   const mcqs = data.mcqData.filter(m => m.marks !== null);
   const paperCount = mcqs.length;
 
-  // Predicted overall — MCQ(40) + Essay estimate(60)
   const mcqAvg = parseFloat(data.overallAvg) || 0;
   const mcqPct = mcqAvg / 40;
   const predictedEssay = Math.round(mcqPct * 60 * 10) / 10;
@@ -221,7 +234,7 @@ function renderReport(data) {
     ${getCountdownHTML()}
 
     <div class="header">
-      <div class="school-tag">2026 O/L Paper Class · Hasith Sir</div>
+      <div class="school-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
       <div class="student-name">${data.name}</div>
       <div class="student-id">${data.id}</div>
     </div>
@@ -230,35 +243,35 @@ function renderReport(data) {
       <div class="col">
         <div class="stats-row">
           <div class="stat-card avg">
-            <div class="stat-val">${data.overallAvg}<span style="font-size:14px;opacity:0.5">/40</span></div>
-            <div class="stat-label">MCQ Avg</div>
+            <div class="stat-val">${data.overallAvg}<span style="font-size:14px;opacity:0.55">/40</span></div>
+            <div class="stat-label">MCQ සාමාන්‍යය</div>
           </div>
           <div class="stat-card rank">
-            <div class="stat-val">${data.rank}<span style="font-size:14px;opacity:0.5">/${data.totalStudents}</span></div>
-            <div class="stat-label">Rank</div>
+            <div class="stat-val">${data.rank}<span style="font-size:14px;opacity:0.55">/${data.totalStudents}</span></div>
+            <div class="stat-label">ශ්‍රේණිය</div>
           </div>
           <div class="stat-card papers">
             <div class="stat-val">${paperCount}</div>
-            <div class="stat-label">Papers Done</div>
+            <div class="stat-label">සම්පූර්ණ කළ පත්‍රිකා</div>
           </div>
           <div class="stat-card predicted">
-            <div class="stat-val">${predictedTotal}<span style="font-size:14px;opacity:0.5">/100</span></div>
-            <div class="stat-label">Predicted Total</div>
+            <div class="stat-val">${predictedTotal}<span style="font-size:14px;opacity:0.55">/100</span></div>
+            <div class="stat-label">අනුමාන මුළු ලකුණු</div>
           </div>
           <div class="stat-card predicted-card">
-            <div class="stat-label">Predicted Breakdown</div>
+            <div class="stat-label" style="margin-bottom:4px">අනුමාන වර්ගීකරණය</div>
             <div class="predicted-sub">
               <span>MCQ (40): <b>${mcqAvg}</b></span>
-              <span>Essay (60, est.): <b>${predictedEssay}</b></span>
+              <span>රචනා (60, අනුමාන): <b>${predictedEssay}</b></span>
             </div>
           </div>
         </div>
 
         <div class="breakdown-card">
-          <div class="breakdown-title">MCQ Breakdown</div>
+          <div class="breakdown-title">MCQ වර්ගීකරණය</div>
           ${mcqs.map(m => {
             const pct = (m.marks / 40) * 100;
-            const color = m.marks >= 31 ? '#34d399' : m.marks >= 21 ? '#4f9cf9' : m.marks >= 11 ? '#fbbf24' : '#f87171';
+            const color = m.marks >= 31 ? '#059669' : m.marks >= 21 ? '#2563eb' : m.marks >= 11 ? '#d97706' : '#dc2626';
             return `<div class="mcq-row">
               <div class="mcq-name">${m.name}</div>
               <div class="mcq-bar-wrap"><div class="mcq-bar" style="width:${pct}%;background:${color}"></div></div>
@@ -271,10 +284,10 @@ function renderReport(data) {
 
       <div class="col">
         <div class="chart-card">
-          <div class="chart-title">Performance Chart</div>
+          <div class="chart-title">කාර්යසාධන ප්‍රස්ථාරය</div>
           <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#4f9cf9"></div>Your Marks</div>
-            <div class="legend-item"><div class="legend-line"></div>Class Avg</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>ඔබේ ලකුණු</div>
+            <div class="legend-item"><div class="legend-line"></div>පංති සාමාන්‍යය</div>
           </div>
           <div class="chart-wrap">
             <canvas id="chart"></canvas>
@@ -284,11 +297,10 @@ function renderReport(data) {
     </div>
 
     <div class="footer">
-      Generated by Hasith Sir · 2026 O/L Paper Class · Essay marks are an estimate based on MCQ performance
+      හසිත් සර් විසින් සකස් කරන ලදී · 2026 O/L පත්‍රිකා පංතිය · රචනා ලකුණු MCQ කාර්යසාධනය මත පදනම් වූ අනුමානයකි
     </div>
   `;
 
-  // Chart — bar + line combo
   const labels   = data.mcqData.map(m => m.name);
   const marks    = data.mcqData.map(m => m.marks);
   const classAvg = data.mcqData.map(m => m.classAvg);
@@ -299,14 +311,14 @@ function renderReport(data) {
       datasets: [
         {
           type: "bar",
-          label: "Your Marks",
+          label: "ඔබේ ලකුණු",
           data: marks,
           backgroundColor: marks.map(m =>
             m === null ? 'transparent' :
-            m >= 31 ? 'rgba(52,211,153,0.85)' :
-            m >= 21 ? 'rgba(79,156,249,0.85)' :
-            m >= 11 ? 'rgba(251,191,36,0.85)' :
-            'rgba(248,113,113,0.85)'
+            m >= 31 ? 'rgba(5,150,105,0.85)' :
+            m >= 21 ? 'rgba(37,99,235,0.85)' :
+            m >= 11 ? 'rgba(217,119,6,0.85)' :
+            'rgba(220,38,38,0.85)'
           ),
           borderRadius: 6,
           borderSkipped: false,
@@ -314,14 +326,14 @@ function renderReport(data) {
         },
         {
           type: "line",
-          label: "Class Avg",
+          label: "පංති සාමාන්‍යය",
           data: classAvg,
-          borderColor: "#f87171",
+          borderColor: "#dc2626",
           backgroundColor: "transparent",
           borderWidth: 2.5,
           borderDash: [5,4],
-          pointBackgroundColor: "#f87171",
-          pointBorderColor: "#0d0f14",
+          pointBackgroundColor: "#dc2626",
+          pointBorderColor: "#ffffff",
           pointBorderWidth: 2,
           pointRadius: 4,
           pointHoverRadius: 6,
@@ -346,12 +358,12 @@ function renderReport(data) {
       scales: {
         y: {
           min: 0, max: 40,
-          ticks: { color: "#8b93a5", font: { family: "DM Mono", size: 12, weight: 500 }, stepSize: 10 },
-          grid: { color: "#252a38" },
+          ticks: { color: "#8b8577", font: { family: "DM Mono", size: 12, weight: 500 }, stepSize: 10 },
+          grid: { color: "#e5e1d8" },
           border: { display: false }
         },
         x: {
-          ticks: { color: "#8b93a5", font: { family: "DM Mono", size: 12, weight: 500 } },
+          ticks: { color: "#8b8577", font: { family: "DM Mono", size: 12, weight: 500 } },
           grid: { display: false },
           border: { display: false }
         }
