@@ -271,7 +271,7 @@ async function loadReport() {
 
     renderReport(data);
   } catch(err) {
-    app.innerHTML = `<div class="error-box"><p>වාර්තාව පූරණය කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>වාර්තාව සම්පූර්ණ කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
   }
 }
 
@@ -289,7 +289,7 @@ function renderReport(data) {
     ${getCountdownHTML()}
 
     <div class="header">
-      <div class="school-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
+      <div class="school-tag">2026 O/L MCQ Paper Class</div>
       <div class="student-name">${data.name}</div>
       <div class="student-id">${data.id}</div>
     </div>
@@ -303,7 +303,7 @@ function renderReport(data) {
           </div>
           <div class="stat-card rank">
             <div class="stat-val">${data.rank}<span style="font-size:14px;opacity:0.55">/${data.totalStudents}</span></div>
-            <div class="stat-label">ශ්‍රේණිය</div>
+            <div class="stat-label">වෙනියා</div>
           </div>
           <div class="stat-card papers">
             <div class="stat-val">${paperCount}</div>
@@ -323,7 +323,7 @@ function renderReport(data) {
         </div>
 
         <div class="breakdown-card">
-          <div class="breakdown-title">MCQ වර්ගීකරණය</div>
+          <div class="breakdown-title">ලබාගත් MCQ ලකුණු </div>
           ${mcqs.map(m => {
             const pct = (m.marks / 40) * 100;
             const color = m.marks >= 31 ? '#059669' : m.marks >= 21 ? '#2563eb' : m.marks >= 11 ? '#d97706' : '#dc2626';
