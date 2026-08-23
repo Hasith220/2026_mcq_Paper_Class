@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ශිෂ්‍ය වාර්තාව — 2026 O/L</title>
+<title> 2026 O/L Paper Class Report </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Abhaya+Libre:wght@500;700;800&family=Yaldevi:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -232,11 +232,11 @@
     <div class="loading-bg"></div>
     <div class="loading-overlay"></div>
     <div class="loading-content">
-      <div class="loading-welcome-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
-      <div class="loading-welcome-title">Welcome<br/>2026 O/L Paper Class</div>
-      <div class="loading-welcome-sub">ඔබේ ශිෂ්‍ය වාර්තාව සකසමින්...</div>
+      <div class="loading-welcome-tag">2026 O/L Paper Class</div>
+      <div class="loading-welcome-title">Welcome<br/></div>
+      <div class="loading-welcome-sub"> Your Report is processing...</div>
       <div class="loading-spinner"></div>
-      <p>වාර්තාව පූරණය වෙමින්...</p>
+      <p> Loading Report </p>
     </div>
   </div>
 </div>
@@ -260,14 +260,14 @@ function getCountdownHTML() {
 
   return `
     <div class="countdown-banner" id="countdown-banner">
-      <div class="countdown-label">⏳ O/L විභාගයට ඇති කාලය</div>
+      <div class="countdown-label"> වැඩ කරන්න තියෙන වෙලාව </div>
       <div class="countdown-units">
-        <div class="countdown-unit"><div class="countdown-num">${days}</div><div class="countdown-tag">දින</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-tag">පැය</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(minutes).padStart(2,'0')}</div><div class="countdown-tag">මිනිත්තු</div></div>
-        <div class="countdown-unit"><div class="countdown-num">${String(seconds).padStart(2,'0')}</div><div class="countdown-tag">තත්පර</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${days}</div><div class="countdown-tag">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-tag">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(minutes).padStart(2,'0')}</div><div class="countdown-tag">Minutes</div></div>
+        <div class="countdown-unit"><div class="countdown-num">${String(seconds).padStart(2,'0')}</div><div class="countdown-tag">Seconds</div></div>
       </div>
-      <div class="countdown-date">දෙසැම්බර් 8, 2026 · පෙ.ව. 8.30</div>
+      <div class="countdown-date">December 8, 2026  8.30 a.m </div>
     </div>
   `;
 }
@@ -300,8 +300,7 @@ async function loadReport() {
 
     renderReport(data);
   } catch(err) {
-    app.innerHTML = `<div class="error-box"><p>වාර්තාව පූරණය කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
-  }
+    app.innerHTML = `<div class="error-box"><p> Loading Failed.<br/>${err.message}</p></div>`;
 }
 
 function renderReport(data) {
@@ -318,7 +317,7 @@ function renderReport(data) {
     ${getCountdownHTML()}
 
     <div class="header">
-      <div class="school-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
+      <div class="school-tag">2026 O/L Paper Class · Hasith Sir </div>
       <div class="student-name">${data.name}</div>
       <div class="student-id">${data.id}</div>
     </div>
@@ -328,22 +327,22 @@ function renderReport(data) {
         <div class="stats-row">
           <div class="stat-card avg">
             <div class="stat-val">${data.overallAvg}<span style="font-size:14px;opacity:0.55">/40</span></div>
-            <div class="stat-label">MCQ සාමාන්‍යය</div>
+            <div class="stat-label">MCQ Average</div>
           </div>
           <div class="stat-card rank">
             <div class="stat-val">${data.rank}<span style="font-size:14px;opacity:0.55">/${data.totalStudents}</span></div>
-            <div class="stat-label">ශ්‍රේණිය</div>
+            <div class="stat-label">Rank</div>
           </div>
           <div class="stat-card papers">
             <div class="stat-val">${paperCount}</div>
-            <div class="stat-label">සම්පූර්ණ කළ පත්‍රිකා</div>
+            <div class="stat-label">සහභාගී වූ Paper ගණන</div>
           </div>
           <div class="stat-card predicted">
             <div class="stat-val">${predictedTotal}<span style="font-size:14px;opacity:0.55">/100</span></div>
             <div class="stat-label">අනුමාන මුළු ලකුණු</div>
           </div>
           <div class="stat-card predicted-card">
-            <div class="stat-label" style="margin-bottom:4px">අනුමාන වර්ගීකරණය</div>
+            <div class="stat-label" style="margin-bottom:4px">MCQ Classification</div>
             <div class="predicted-sub">
               <span>MCQ (40): <b>${mcqAvg}</b></span>
               <span>රචනා (60, අනුමාන): <b>${predictedEssay}</b></span>
@@ -352,7 +351,7 @@ function renderReport(data) {
         </div>
 
         <div class="breakdown-card">
-          <div class="breakdown-title">MCQ වර්ගීකරණය</div>
+          <div class="breakdown-title">MCQ Classification</div>
           ${mcqs.map(m => {
             const pct = (m.marks / 40) * 100;
             const color = m.marks >= 31 ? '#059669' : m.marks >= 21 ? '#2563eb' : m.marks >= 11 ? '#d97706' : '#dc2626';
@@ -368,10 +367,10 @@ function renderReport(data) {
 
       <div class="col">
         <div class="chart-card">
-          <div class="chart-title">කාර්යසාධන ප්‍රස්ථාරය</div>
+          <div class="chart-title">Bar Chart</div>
           <div class="legend">
             <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>ඔබේ ලකුණු</div>
-            <div class="legend-item"><div class="legend-line"></div>පංති සාමාන්‍යය</div>
+            <div class="legend-item"><div class="legend-line"></div>පංතියේ සාමාන්‍යය</div>
           </div>
           <div class="chart-wrap">
             <canvas id="chart"></canvas>
@@ -388,8 +387,7 @@ function renderReport(data) {
     </div>
 
     <div class="footer">
-      හසිත් සර් විසින් සකස් කරන ලදී · 2026 O/L පත්‍රිකා පංතිය · රචනා ලකුණු MCQ කාර්යසාධනය මත පදනම් වූ අනුමානයකි
-    </div>
+      Generate by Hasith Sir ©2026 ol paper class </div>
   `;
 
   const labels   = data.mcqData.map(m => m.name);
