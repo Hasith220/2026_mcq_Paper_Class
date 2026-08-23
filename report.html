@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title> 2026 O/L Paper Class Report </title>
+<title>2026 O/L Paper Class Report</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Abhaya+Libre:wght@500;700;800&family=Yaldevi:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -53,7 +53,6 @@
   }
   .app { width: 100%; max-width: 1200px; margin: 0 auto; }
 
-  /* Countdown banner */
   .countdown-banner {
     background: linear-gradient(135deg, #fff5f5, #fffaf0);
     border: 1.5px solid #fecaca;
@@ -74,13 +73,11 @@
   .countdown-tag { font-family: var(--label); font-size: 11px; color: var(--muted); font-weight: 500; }
   .countdown-date { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 
-  /* Header */
   .header { text-align: center; margin-bottom: 0.85rem; padding-bottom: 0.7rem; border-bottom: 2px solid var(--border); }
   .school-tag { display: inline-block; font-family: var(--label); font-size: 12px; letter-spacing: 1px; color: var(--muted); font-weight: 500; margin-bottom: 8px; }
   .student-name { font-family: var(--heading); font-size: 30px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
   .student-id { font-size: 13px; font-family: var(--mono); color: var(--muted); }
 
-  /* Main layout */
   .main-grid {
     display: grid;
     grid-template-columns: 1.05fr 1fr;
@@ -89,7 +86,6 @@
   }
   .col { display: flex; flex-direction: column; gap: 0.75rem; }
 
-  /* Stats row */
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 14px 10px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .stat-val { font-size: 27px; font-weight: 700; font-family: var(--mono); margin-bottom: 3px; line-height: 1; }
@@ -111,12 +107,10 @@
   .predicted-sub { display: flex; justify-content: center; gap: 20px; margin-top: 6px; font-family: var(--mono); font-size: 13px; color: var(--text-soft); }
   .predicted-sub span b { color: var(--text); font-size: 15px; }
 
-  /* Chart */
   .chart-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .chart-title { font-family: var(--heading); font-size: 16px; color: var(--text); margin-bottom: 10px; font-weight: 700; }
   .chart-wrap { position: relative; height: 250px; }
 
-  /* MCQ breakdown */
   .breakdown-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .breakdown-title { font-family: var(--heading); font-size: 16px; color: var(--text); margin-bottom: 10px; font-weight: 700; }
   .mcq-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); gap: 10px; }
@@ -127,16 +121,13 @@
   .mcq-marks { font-size: 14px; font-family: var(--mono); font-weight: 700; width: 48px; text-align: right; flex-shrink: 0; }
   .mcq-rank { font-size: 12px; font-family: var(--mono); color: var(--muted); width: 34px; text-align: right; flex-shrink: 0; }
 
-  /* Legend */
   .legend { display: flex; gap: 18px; margin-bottom: 10px; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-family: var(--label); font-size: 12.5px; color: var(--text-soft); font-weight: 500; }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
   .legend-line { width: 14px; height: 2px; border-top: 2px dashed var(--danger); flex-shrink: 0; }
 
-  /* Footer */
   .footer { text-align: center; font-family: var(--label); font-size: 11px; color: var(--muted); margin-top: 0.7rem; }
 
-  /* PDF download button */
   .pdf-btn-wrap { display: flex; justify-content: center; margin-top: 0.9rem; }
   .pdf-btn {
     display: inline-flex;
@@ -160,7 +151,6 @@
   .pdf-btn svg { flex-shrink: 0; }
   .pdf-spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
 
-  /* Loading / Error */
   .loading {
     position: fixed;
     inset: 0;
@@ -234,9 +224,9 @@
     <div class="loading-content">
       <div class="loading-welcome-tag">2026 O/L Paper Class</div>
       <div class="loading-welcome-title">Welcome<br/></div>
-      <div class="loading-welcome-sub"> Your Report is processing...</div>
+      <div class="loading-welcome-sub">Your Report is processing...</div>
       <div class="loading-spinner"></div>
-      <p> Loading Report </p>
+      <p>Loading Report</p>
     </div>
   </div>
 </div>
@@ -250,7 +240,7 @@ function getCountdownHTML() {
   const diff = EXAM_DATE - now;
 
   if (diff <= 0) {
-    return `<div class="countdown-banner"><div class="countdown-label">🎓 O/L විභාගය ආරම්භ වී ඇත!</div></div>`;
+    return `<div class="countdown-banner"><div class="countdown-label">O/L exam has started!</div></div>`;
   }
 
   const days    = Math.floor(diff / (1000*60*60*24));
@@ -260,14 +250,14 @@ function getCountdownHTML() {
 
   return `
     <div class="countdown-banner" id="countdown-banner">
-      <div class="countdown-label"> වැඩ කරන්න තියෙන වෙලාව </div>
+      <div class="countdown-label">Time left for O/L Exam</div>
       <div class="countdown-units">
         <div class="countdown-unit"><div class="countdown-num">${days}</div><div class="countdown-tag">Days</div></div>
         <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-tag">Hours</div></div>
         <div class="countdown-unit"><div class="countdown-num">${String(minutes).padStart(2,'0')}</div><div class="countdown-tag">Minutes</div></div>
         <div class="countdown-unit"><div class="countdown-num">${String(seconds).padStart(2,'0')}</div><div class="countdown-tag">Seconds</div></div>
       </div>
-      <div class="countdown-date">December 8, 2026  8.30 a.m </div>
+      <div class="countdown-date">December 8, 2026 &middot; 8.30 a.m</div>
     </div>
   `;
 }
@@ -285,7 +275,7 @@ async function loadReport() {
   const app = document.getElementById("app");
 
   if (!studentId) {
-    app.innerHTML = `<div class="error-box"><p>ශිෂ්‍ය අංකයක් ලබා දී නැත.</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>No student ID provided.</p></div>`;
     return;
   }
 
@@ -294,13 +284,14 @@ async function loadReport() {
     const data = await res.json();
 
     if (data.error) {
-      app.innerHTML = `<div class="error-box"><p>දෝෂයකි: ${data.error}</p></div>`;
+      app.innerHTML = `<div class="error-box"><p>Error: ${data.error}</p></div>`;
       return;
     }
 
     renderReport(data);
   } catch(err) {
-    app.innerHTML = `<div class="error-box"><p> Loading Failed.<br/>${err.message}</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>Loading Failed.<br/>${err.message}</p></div>`;
+  }
 }
 
 function renderReport(data) {
@@ -317,7 +308,7 @@ function renderReport(data) {
     ${getCountdownHTML()}
 
     <div class="header">
-      <div class="school-tag">2026 O/L Paper Class · Hasith Sir </div>
+      <div class="school-tag">2026 O/L Paper Class &middot; Hasith Sir</div>
       <div class="student-name">${data.name}</div>
       <div class="student-id">${data.id}</div>
     </div>
@@ -335,23 +326,23 @@ function renderReport(data) {
           </div>
           <div class="stat-card papers">
             <div class="stat-val">${paperCount}</div>
-            <div class="stat-label">සහභාගී වූ Paper ගණන</div>
+            <div class="stat-label">Papers Done</div>
           </div>
           <div class="stat-card predicted">
             <div class="stat-val">${predictedTotal}<span style="font-size:14px;opacity:0.55">/100</span></div>
-            <div class="stat-label">අනුමාන මුළු ලකුණු</div>
+            <div class="stat-label">Predicted Total</div>
           </div>
           <div class="stat-card predicted-card">
-            <div class="stat-label" style="margin-bottom:4px">MCQ Classification</div>
+            <div class="stat-label" style="margin-bottom:4px">Predicted Breakdown</div>
             <div class="predicted-sub">
               <span>MCQ (40): <b>${mcqAvg}</b></span>
-              <span>රචනා (60, අනුමාන): <b>${predictedEssay}</b></span>
+              <span>Essay (60, est.): <b>${predictedEssay}</b></span>
             </div>
           </div>
         </div>
 
         <div class="breakdown-card">
-          <div class="breakdown-title">MCQ Classification</div>
+          <div class="breakdown-title">MCQ Breakdown</div>
           ${mcqs.map(m => {
             const pct = (m.marks / 40) * 100;
             const color = m.marks >= 31 ? '#059669' : m.marks >= 21 ? '#2563eb' : m.marks >= 11 ? '#d97706' : '#dc2626';
@@ -367,10 +358,10 @@ function renderReport(data) {
 
       <div class="col">
         <div class="chart-card">
-          <div class="chart-title">Bar Chart</div>
+          <div class="chart-title">Performance Chart</div>
           <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>ඔබේ ලකුණු</div>
-            <div class="legend-item"><div class="legend-line"></div>පංතියේ සාමාන්‍යය</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>Your Marks</div>
+            <div class="legend-item"><div class="legend-line"></div>Class Average</div>
           </div>
           <div class="chart-wrap">
             <canvas id="chart"></canvas>
@@ -382,12 +373,13 @@ function renderReport(data) {
     <div class="pdf-btn-wrap">
       <button class="pdf-btn" id="pdf-btn" onclick="downloadPDF()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span id="pdf-btn-text">PDF බාගන්න</span>
+        <span id="pdf-btn-text">Download PDF</span>
       </button>
     </div>
 
     <div class="footer">
-      Generate by Hasith Sir ©2026 ol paper class </div>
+      Generated by Hasith Sir &copy; 2026 O/L Paper Class
+    </div>
   `;
 
   const labels   = data.mcqData.map(m => m.name);
@@ -400,7 +392,7 @@ function renderReport(data) {
       datasets: [
         {
           type: "bar",
-          label: "ඔබේ ලකුණු",
+          label: "Your Marks",
           data: marks,
           backgroundColor: marks.map(m =>
             m === null ? 'transparent' :
@@ -415,7 +407,7 @@ function renderReport(data) {
         },
         {
           type: "line",
-          label: "පංති සාමාන්‍යය",
+          label: "Class Average",
           data: classAvg,
           borderColor: "#dc2626",
           backgroundColor: "transparent",
@@ -467,11 +459,9 @@ async function downloadPDF() {
   const target = document.querySelector('.app');
 
   btn.disabled = true;
-  btnText.textContent = 'සකසමින්...';
   const originalHTML = btn.innerHTML;
-  btn.innerHTML = '<div class="pdf-spinner"></div><span>සකසමින්...</span>';
+  btn.innerHTML = '<div class="pdf-spinner"></div><span>Preparing...</span>';
 
-  // Temporarily hide the button itself while capturing
   const btnWrap = document.querySelector('.pdf-btn-wrap');
   btnWrap.style.visibility = 'hidden';
 
@@ -504,7 +494,7 @@ async function downloadPDF() {
     pdf.save('OL-Report-' + studentId + '.pdf');
 
   } catch (err) {
-    alert('PDF සෑදීමට අසමත් විය: ' + err.message);
+    alert('PDF generation failed: ' + err.message);
   }
 
   btnWrap.style.visibility = 'visible';
