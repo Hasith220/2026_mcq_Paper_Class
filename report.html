@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>MCQ Paper Class — 2026 O/L</title>
+<title>ශිෂ්‍ය වාර්තාව — 2026 O/L</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Abhaya+Libre:wght@500;700;800&family=Yaldevi:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root {
     --bg: #f7f5f0;
@@ -26,10 +28,10 @@
     --text: #1f2937;
     --text-soft: #4b5563;
     --muted: #8b8577;
-    --mono: 'DM Mono', monospace;
-    --heading: 'Abhaya Libre', 'Noto Sans Sinhala', serif;
-    --body: 'Yaldevi', 'Noto Sans Sinhala', sans-serif;
-    --label: 'Noto Sans Sinhala', sans-serif;
+    --mono: 'DM Mono', 'Noto Sans Mono', monospace;
+    --heading: 'Abhaya Libre', 'Noto Sans Sinhala', 'Iskoola Pota', 'Nirmala UI', 'Yaldevi', sans-serif;
+    --body: 'Yaldevi', 'Noto Sans Sinhala', 'Iskoola Pota', 'Nirmala UI', 'Noto Sans', sans-serif;
+    --label: 'Noto Sans Sinhala', 'Iskoola Pota', 'Nirmala UI', 'Yaldevi', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -37,7 +39,10 @@
     color: var(--text);
     font-family: var(--body);
     height: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
+  html { font-size: 16px; }
   body {
     padding: 0.9rem 0.85rem 1.5rem;
     display: flex;
@@ -131,6 +136,30 @@
   /* Footer */
   .footer { text-align: center; font-family: var(--label); font-size: 11px; color: var(--muted); margin-top: 0.7rem; }
 
+  /* PDF download button */
+  .pdf-btn-wrap { display: flex; justify-content: center; margin-top: 0.9rem; }
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 26px;
+    font-family: var(--label);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(37,99,235,0.28);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  }
+  .pdf-btn:hover { background: #1d4ed8; box-shadow: 0 5px 14px rgba(37,99,235,0.35); transform: translateY(-1px); }
+  .pdf-btn:active { transform: translateY(0); }
+  .pdf-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .pdf-btn svg { flex-shrink: 0; }
+  .pdf-spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+
   /* Loading / Error */
   .loading {
     position: fixed;
@@ -203,11 +232,11 @@
     <div class="loading-bg"></div>
     <div class="loading-overlay"></div>
     <div class="loading-content">
-      <div class="loading-welcome-tag">2026 O/L Paper Class </div>
-      <div class="loading-welcome-title">Welcome</div>
+      <div class="loading-welcome-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
+      <div class="loading-welcome-title">Welcome<br/>2026 O/L Paper Class</div>
       <div class="loading-welcome-sub">ඔබේ ශිෂ්‍ය වාර්තාව සකසමින්...</div>
       <div class="loading-spinner"></div>
-      <p>Loading...</p>
+      <p>වාර්තාව පූරණය වෙමින්...</p>
     </div>
   </div>
 </div>
@@ -271,7 +300,7 @@ async function loadReport() {
 
     renderReport(data);
   } catch(err) {
-    app.innerHTML = `<div class="error-box"><p>වාර්තාව සම්පූර්ණ කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
+    app.innerHTML = `<div class="error-box"><p>වාර්තාව පූරණය කිරීමට අසමත් විය.<br/>${err.message}</p></div>`;
   }
 }
 
@@ -289,7 +318,7 @@ function renderReport(data) {
     ${getCountdownHTML()}
 
     <div class="header">
-      <div class="school-tag">2026 O/L MCQ Paper Class</div>
+      <div class="school-tag">2026 O/L පත්‍රිකා පංතිය · හසිත් සර්</div>
       <div class="student-name">${data.name}</div>
       <div class="student-id">${data.id}</div>
     </div>
@@ -303,18 +332,18 @@ function renderReport(data) {
           </div>
           <div class="stat-card rank">
             <div class="stat-val">${data.rank}<span style="font-size:14px;opacity:0.55">/${data.totalStudents}</span></div>
-            <div class="stat-label">වෙනියා</div>
+            <div class="stat-label">ශ්‍රේණිය</div>
           </div>
           <div class="stat-card papers">
             <div class="stat-val">${paperCount}</div>
-            <div class="stat-label">මුලු ප්‍රශ්න පත්‍ර ගණන</div>
+            <div class="stat-label">සම්පූර්ණ කළ පත්‍රිකා</div>
           </div>
           <div class="stat-card predicted">
             <div class="stat-val">${predictedTotal}<span style="font-size:14px;opacity:0.55">/100</span></div>
             <div class="stat-label">අනුමාන මුළු ලකුණු</div>
           </div>
           <div class="stat-card predicted-card">
-            <div class="stat-label" style="margin-bottom:4px">අනුමාන ලකුණ හැදුන හැටි</div>
+            <div class="stat-label" style="margin-bottom:4px">අනුමාන වර්ගීකරණය</div>
             <div class="predicted-sub">
               <span>MCQ (40): <b>${mcqAvg}</b></span>
               <span>රචනා (60, අනුමාන): <b>${predictedEssay}</b></span>
@@ -323,7 +352,7 @@ function renderReport(data) {
         </div>
 
         <div class="breakdown-card">
-          <div class="breakdown-title">ලබාගත් MCQ ලකුණු </div>
+          <div class="breakdown-title">MCQ වර්ගීකරණය</div>
           ${mcqs.map(m => {
             const pct = (m.marks / 40) * 100;
             const color = m.marks >= 31 ? '#059669' : m.marks >= 21 ? '#2563eb' : m.marks >= 11 ? '#d97706' : '#dc2626';
@@ -339,10 +368,10 @@ function renderReport(data) {
 
       <div class="col">
         <div class="chart-card">
-          <div class="chart-title">ලකුණු ප්‍රස්තාරය</div>
+          <div class="chart-title">කාර්යසාධන ප්‍රස්ථාරය</div>
           <div class="legend">
             <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>ඔබේ ලකුණු</div>
-            <div class="legend-item"><div class="legend-line"></div>සාමාන්‍යය</div>
+            <div class="legend-item"><div class="legend-line"></div>පංති සාමාන්‍යය</div>
           </div>
           <div class="chart-wrap">
             <canvas id="chart"></canvas>
@@ -351,9 +380,15 @@ function renderReport(data) {
       </div>
     </div>
 
-    <div class="footer">
-      Generated by Hasith Sir · 2026 O/L Paper Class · Essay marks are an estimate based on MCQ performance
+    <div class="pdf-btn-wrap">
+      <button class="pdf-btn" id="pdf-btn" onclick="downloadPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span id="pdf-btn-text">PDF බාගන්න</span>
+      </button>
+    </div>
 
+    <div class="footer">
+      හසිත් සර් විසින් සකස් කරන ලදී · 2026 O/L පත්‍රිකා පංතිය · රචනා ලකුණු MCQ කාර්යසාධනය මත පදනම් වූ අනුමානයකි
     </div>
   `;
 
@@ -426,6 +461,57 @@ function renderReport(data) {
       }
     }
   });
+}
+
+async function downloadPDF() {
+  const btn = document.getElementById('pdf-btn');
+  const btnText = document.getElementById('pdf-btn-text');
+  const target = document.querySelector('.app');
+
+  btn.disabled = true;
+  btnText.textContent = 'සකසමින්...';
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<div class="pdf-spinner"></div><span>සකසමින්...</span>';
+
+  // Temporarily hide the button itself while capturing
+  const btnWrap = document.querySelector('.pdf-btn-wrap');
+  btnWrap.style.visibility = 'hidden';
+
+  try {
+    const canvas = await html2canvas(target, {
+      scale: 2,
+      backgroundColor: '#f7f5f0',
+      useCORS: true,
+      allowTaint: true
+    });
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+    const { jsPDF } = window.jspdf;
+
+    const pxToMm = px => px * 0.264583;
+    const pdfWidth = pxToMm(canvas.width / 2);
+    const pdfHeight = pxToMm(canvas.height / 2);
+
+    const orientation = pdfWidth > pdfHeight ? 'landscape' : 'portrait';
+    const pdf = new jsPDF({
+      orientation,
+      unit: 'mm',
+      format: [pdfWidth, pdfHeight]
+    });
+
+    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+
+    const params = new URLSearchParams(window.location.search);
+    const studentId = params.get('id') || 'student';
+    pdf.save('OL-Report-' + studentId + '.pdf');
+
+  } catch (err) {
+    alert('PDF සෑදීමට අසමත් විය: ' + err.message);
+  }
+
+  btnWrap.style.visibility = 'visible';
+  btn.disabled = false;
+  btn.innerHTML = originalHTML;
 }
 
 loadReport();
