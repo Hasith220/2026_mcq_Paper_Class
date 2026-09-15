@@ -123,6 +123,9 @@
   .recent-mcq { font-size: 11px; font-family: var(--mono); color: var(--muted); }
   .recent-marks { font-size: 13px; font-family: var(--mono); font-weight: 500; }
   .recent-check { font-size: 11px; color: var(--success); }
+  .sms-one-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; width: 26px; height: 26px; font-size: 12px; color: var(--accent); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+  .sms-one-btn:hover:not(:disabled) { background: rgba(79,156,249,0.12); border-color: var(--accent); }
+  .sms-one-btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .recent-time { font-size: 11px; font-family: var(--mono); color: var(--muted); }
   @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
 </style>
@@ -135,7 +138,7 @@
       <div class="logo-dot"></div>
       <h1>MCQ Marks Entry</h1>
     </div>
-    <p>2026 O/L Paper Class &nbsp;·&nbsp; 62 students</p>
+    <p>2026 O/L Paper Class &nbsp;·&nbsp; 63 students</p>
   </div>
 
   <!-- URL -->
@@ -165,7 +168,7 @@
     <div class="card-label">Index Number — Last 2 Digits</div>
     <div class="id-input-row">
       <div class="id-prefix">265340</div>
-      <div class="id-zero"></div>
+      <div class="id-zero">0</div>
       <input type="text" class="id-suffix" id="suffix" maxlength="2" placeholder="XX" oninput="lookup(this.value)" autocomplete="off" />
     </div>
     <div id="student-out"></div>
@@ -270,7 +273,7 @@ const STUDENTS = {
   "59": { name: "D.A Sanjula Himansi",                       id: "26534059" },
   "61": { name: "D.L Nathidu Nethsara",                      id: "26534061" },
   "62": { name: "T.V Sanduni Maheshika",                     id: "26534062" },
-  "63": { name: "W.L Siharu Chathumina",                      id: "26534063" },
+  "63": { name: "Siharu Chathumina",                          id: "26534063" },
   "60": { name: "L.G Tharushi Prabodha",                     id: "26534060" },
 };
 
@@ -373,12 +376,13 @@ function submitMarks() {
   };
 
   const snapName  = cur.name;
+  const snapId    = cur.id;
   const snapMarks = marks;
   const snapMCQ   = activeMCQ;
   const snapTime  = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
 
   // Immediately reset — next student enter කරන්න ready, wait නෑ
-  recent.unshift({ name: snapName, mcq: snapMCQ, marks: snapMarks, time: snapTime, pending: true });
+  recent.unshift({ name: snapName, id: snapId, mcq: snapMCQ, marks: snapMarks, time: snapTime, pending: true });
   if (recent.length > 8) recent.pop();
   renderRecent();
   reset();
@@ -432,6 +436,31 @@ async function sendBatchSMS() {
   btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.22.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg> Send SMS to All Parents';
 }
 
+async function sendSingleSMS(indexId, mcq, btnEl) {
+  if (!scriptUrl) {
+    alert('Save the Apps Script URL first!');
+    return;
+  }
+  btnEl.disabled = true;
+  const originalHTML = btnEl.innerHTML;
+  btnEl.innerHTML = '<div class="spinner"></div>';
+
+  try {
+    await fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'sendSingleSMS', indexNumber: indexId, mcq: mcq })
+    });
+    btnEl.innerHTML = '✓';
+    btnEl.style.color = 'var(--success)';
+  } catch(err) {
+    btnEl.innerHTML = '✗';
+    btnEl.style.color = 'var(--danger)';
+    btnEl.disabled = false;
+  }
+}
+
 function reset() {
   document.getElementById('suffix').value = '';
   document.getElementById('student-out').innerHTML = '';
@@ -446,7 +475,7 @@ function renderRecent() {
   const list = document.getElementById('recent-list');
   if (!recent.length) { card.style.display='none'; return; }
   card.style.display = 'block';
-  list.innerHTML = recent.map(r => `
+  list.innerHTML = recent.map((r, idx) => `
     <div class="recent-item">
       <div class="recent-name">${r.name}</div>
       <div class="recent-meta">
@@ -459,6 +488,7 @@ function renderRecent() {
             : '<span class="recent-check">✓</span>'
         }
         <span class="recent-time">${r.time}</span>
+        <button class="sms-one-btn" title="Send SMS to this student" onclick="sendSingleSMS('${r.id}','${r.mcq}',this)">✉</button>
       </div>
     </div>`).join('');
 }
